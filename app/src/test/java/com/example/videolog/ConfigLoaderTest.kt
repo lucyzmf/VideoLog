@@ -62,7 +62,11 @@ class ConfigLoaderTest {
         
         // Create a mock context that returns our invalid JSON
         val mockContext = object : Context by context {
-            override fun openAsset(fileName: String) = invalidJson.byteInputStream()
+            override fun getAssets() = object : android.content.res.AssetManager() {
+                override fun open(fileName: String): InputStream {
+                    return invalidJson.byteInputStream()
+                }
+            }
         }
         
         val configLoader = ConfigLoader(mockContext)
