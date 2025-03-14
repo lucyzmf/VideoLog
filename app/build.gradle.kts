@@ -60,6 +60,7 @@ dependencies {
     
     // JSON Validation
     implementation("com.networknt:json-schema-validator:1.0.76")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
     
     
     // Testing
