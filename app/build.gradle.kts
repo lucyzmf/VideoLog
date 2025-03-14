@@ -40,16 +40,30 @@ android {
 }
 
 dependencies {
-
+    // Core Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    
+    // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    
+    // Media
+    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
+    
+    // Serial Communication
+    implementation("com.github.mik3y:usb-serial-for-android:3.5.1")
+    
+    // JSON Validation
+    implementation("com.networknt:json-schema-validator:1.0.76")
+    
+    // Testing
     testImplementation(libs.junit)
+    testImplementation("org.json:json:20231013") // For test JSON data
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
