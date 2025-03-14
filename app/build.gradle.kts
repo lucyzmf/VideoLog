@@ -17,6 +17,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    
+    sourceSets {
+        getByName("test") {
+            assets.srcDirs("src/test/assets")
+        }
+    }
 
     buildTypes {
         release {
@@ -81,7 +87,8 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.5.0")
 
     // Robolectric dependencies for Android testing
-    testImplementation("org.robolectric:robolectric:4.8.1")
+    testImplementation("org.robolectric:robolectric:4.10.3")
+    testImplementation("androidx.test:core:1.5.0")
 
     // Google Truth for assertions
     testImplementation("com.google.truth:truth:1.1.3")

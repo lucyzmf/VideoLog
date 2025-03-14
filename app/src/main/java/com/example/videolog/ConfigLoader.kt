@@ -15,12 +15,15 @@ class ConfigLoader(private val context: Context) {
         val jsonStream = context.assets.open("config.json")
         val schemaStream = context.assets.open("config_schema.json")
         
-        // Read the JSON content
-        val jsonNode = mapper.readTree(jsonStream)
-        jsonStream.reset() // Reset stream for later use
+        // Read the JSON content as a string first to avoid stream issues
+        val jsonString = jsonStream.bufferedReader().use { it.readText() }
+        val schemaString = schemaStream.bufferedReader().use { it.readText() }
         
-        // Validate against schema
-        val schema = schemaFactory.getSchema(schemaStream)
+        // Parse the JSON
+        val jsonNode = mapper.readTree(jsonString)
+        
+        // Create schema from the string
+        val schema = schemaFactory.getSchema(schemaString)
         val errors = schema.validate(jsonNode)
         
         if (errors.isNotEmpty()) {
@@ -29,8 +32,8 @@ class ConfigLoader(private val context: Context) {
             )
         }
 
-        // Reset the stream and read the value
-        return mapper.readValue<AppConfig>(context.assets.open("config.json"))
+        // Parse the config from the string
+        return mapper.readValue<AppConfig>(jsonString)
     }
 }
 
