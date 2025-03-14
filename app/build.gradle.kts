@@ -56,7 +56,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer:2.19.1")
     
     // Serial Communication
-    implementation("com.github.mik3y:usb-serial-for-android:3.5.1")
+    implementation("com.github.mik3y:usb-serial-for-android:3.9.0")
     
     // JSON Validation
     implementation("com.networknt:json-schema-validator:1.0.76")
