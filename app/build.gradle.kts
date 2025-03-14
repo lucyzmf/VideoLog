@@ -65,6 +65,8 @@ dependencies {
     
     // Testing
     testImplementation(libs.junit)
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testImplementation("org.json:json:20231013") // For test JSON data
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

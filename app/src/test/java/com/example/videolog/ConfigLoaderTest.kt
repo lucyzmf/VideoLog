@@ -3,6 +3,8 @@ package com.example.videolog
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import org.mockito.Mockito.*
+import org.mockito.kotlin.anyString
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -60,16 +62,12 @@ class ConfigLoaderTest {
             }
         """.trimIndent()
         
-        // Create a mock context that returns our invalid JSON
-        val mockContext = object : Context by context {
-            override fun getAssets(): android.content.res.AssetManager {
-                return object : android.content.res.AssetManager() {
-                    override fun open(fileName: String): java.io.InputStream {
-                        return invalidJson.byteInputStream()
-                    }
-                }
-            }
-        }
+        // Create mock Context and AssetManager
+        val mockAssetManager = mock(android.content.res.AssetManager::class.java)
+        `when`(mockAssetManager.open(anyString())).thenReturn(invalidJson.byteInputStream())
+        
+        val mockContext = mock(Context::class.java)
+        `when`(mockContext.assets).thenReturn(mockAssetManager)
         
         val configLoader = ConfigLoader(mockContext)
 
