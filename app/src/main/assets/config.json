@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "video": {
+    "uri": "",
+    "playback_speed": 1.0,
+    "loop": false
+  },
+  "serial": {
+    "baud_rate": 115200,
+    "data_bits": 8,
+    "stop_bits": 1,
+    "parity": "none"
+  },
+  "logging": {
+    "enabled": true,
+    "directory": "logs",
+    "max_file_size_mb": 10
+  }
+}
