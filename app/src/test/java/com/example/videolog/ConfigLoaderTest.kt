@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import org.mockito.Mockito.*
-import org.mockito.kotlin.anyString
+import org.mockito.Mockito.anyString
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -46,7 +46,6 @@ class ConfigLoaderTest {
                 "video": {
                     "uri": "",
                     "playback_speed": 1.0
-                    // Missing loop field
                 },
                 "serial": {
                     "baud_rate": 115200,
@@ -62,9 +61,16 @@ class ConfigLoaderTest {
             }
         """.trimIndent()
         
+        val schemaJson = context.assets.open("config_schema.json").bufferedReader().use { it.readText() }
+        
         // Create mock Context and AssetManager
         val mockAssetManager = mock(android.content.res.AssetManager::class.java)
-        `when`(mockAssetManager.open(anyString())).thenReturn(invalidJson.byteInputStream())
+        
+        // When opening config.json, return our invalid JSON
+        `when`(mockAssetManager.open("config.json")).thenReturn(invalidJson.byteInputStream())
+        
+        // When opening config_schema.json, return the actual schema
+        `when`(mockAssetManager.open("config_schema.json")).thenReturn(schemaJson.byteInputStream())
         
         val mockContext = mock(Context::class.java)
         `when`(mockContext.assets).thenReturn(mockAssetManager)
