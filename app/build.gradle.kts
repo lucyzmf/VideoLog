@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services") // Add this line
+    id("com.google.firebase.crashlytics") // Add this line
 }
 
 android {
@@ -60,6 +62,11 @@ dependencies {
     
     // JSON Validation
     implementation("com.networknt:json-schema-validator:1.0.76")
+    
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
     
     // Testing
     testImplementation(libs.junit)
