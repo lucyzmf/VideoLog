@@ -1,26 +1,14 @@
 package com.example.videolog
 
 import android.content.Context
-import androidx.test.core.app.ApplicationProvider
+import android.content.res.AssetManager
 import com.google.common.truth.Truth.assertThat
 import org.mockito.Mockito.*
-import org.mockito.Mockito.anyString
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
+import java.io.ByteArrayInputStream
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
 class ConfigLoaderTest {
-
-    private lateinit var context: Context
-
-    @Before
-    fun setUp() {
-        context = ApplicationProvider.getApplicationContext()
-    }
 
     @Test
     fun loadConfig_validConfig_returnsConfigObject() {
@@ -119,15 +107,16 @@ class ConfigLoaderTest {
             }
         """.trimIndent()
         
-        // Create mock Context and AssetManager
-        val mockAssetManager = mock(android.content.res.AssetManager::class.java)
+        // Create mock AssetManager
+        val mockAssetManager = mock(AssetManager::class.java)
         
         // When opening config.json, return our valid JSON
-        `when`(mockAssetManager.open("config.json")).thenReturn(validJson.byteInputStream())
+        `when`(mockAssetManager.open("config.json")).thenReturn(ByteArrayInputStream(validJson.toByteArray()))
         
         // When opening config_schema.json, return the schema
-        `when`(mockAssetManager.open("config_schema.json")).thenReturn(schemaJson.byteInputStream())
+        `when`(mockAssetManager.open("config_schema.json")).thenReturn(ByteArrayInputStream(schemaJson.toByteArray()))
         
+        // Create mock Context
         val mockContext = mock(Context::class.java)
         `when`(mockContext.assets).thenReturn(mockAssetManager)
         
@@ -154,7 +143,6 @@ class ConfigLoaderTest {
                 "video": {
                     "uri": "",
                     "playback_speed": 1.0
-                    /* Missing loop field */
                 },
                 "serial": {
                     "baud_rate": 115200,
@@ -242,15 +230,16 @@ class ConfigLoaderTest {
             }
         """.trimIndent()
         
-        // Create mock Context and AssetManager
-        val mockAssetManager = mock(android.content.res.AssetManager::class.java)
+        // Create mock AssetManager
+        val mockAssetManager = mock(AssetManager::class.java)
         
         // When opening config.json, return our invalid JSON
-        `when`(mockAssetManager.open("config.json")).thenReturn(invalidJson.byteInputStream())
+        `when`(mockAssetManager.open("config.json")).thenReturn(ByteArrayInputStream(invalidJson.toByteArray()))
         
         // When opening config_schema.json, return the schema
-        `when`(mockAssetManager.open("config_schema.json")).thenReturn(schemaJson.byteInputStream())
+        `when`(mockAssetManager.open("config_schema.json")).thenReturn(ByteArrayInputStream(schemaJson.toByteArray()))
         
+        // Create mock Context
         val mockContext = mock(Context::class.java)
         `when`(mockContext.assets).thenReturn(mockAssetManager)
         

@@ -12,12 +12,14 @@ class ConfigLoader(private val context: Context) {
     private val schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7)
 
     fun loadConfig(): AppConfig {
-        val jsonStream = context.assets.open("config.json")
-        val schemaStream = context.assets.open("config_schema.json")
+        // Use try-with-resources to ensure streams are properly closed
+        val jsonString = context.assets.open("config.json").use { stream ->
+            stream.bufferedReader().readText()
+        }
         
-        // Read the JSON content as a string first to avoid stream issues
-        val jsonString = jsonStream.bufferedReader().use { it.readText() }
-        val schemaString = schemaStream.bufferedReader().use { it.readText() }
+        val schemaString = context.assets.open("config_schema.json").use { stream ->
+            stream.bufferedReader().readText()
+        }
         
         // Parse the JSON
         val jsonNode = mapper.readTree(jsonString)

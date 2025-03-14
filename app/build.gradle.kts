@@ -89,6 +89,7 @@ dependencies {
     // Robolectric dependencies for Android testing
     testImplementation("org.robolectric:robolectric:4.10.3")
     testImplementation("androidx.test:core:1.5.0")
+    testImplementation("org.robolectric:shadows-framework:4.10.3")
 
     // Google Truth for assertions
     testImplementation("com.google.truth:truth:1.1.3")
