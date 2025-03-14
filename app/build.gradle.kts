@@ -77,4 +77,18 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    testImplementation("androidx.test:core-ktx:1.5.0")
+    testImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+
+    // Robolectric dependencies for Android testing
+    testImplementation("org.robolectric:robolectric:4.8.1")
+
+    // Google Truth for assertions
+    testImplementation("com.google.truth:truth:1.1.3")
+
+    // JUnit 4 for testing
+    testImplementation("junit:junit:4.13.2")
 }
